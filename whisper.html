@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>时光</title>
+    <link rel="icon" href="time.png">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="js/modernizr.custom.63321.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!--页头-->
+<header class="clearfix">
+    <div class="logo col-md-3"><h2 class="logo-text">时光小屋</h2></div>
+    <nav class="clearfix">
+        <ul class="clearfix">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="#" class="active">流言</a></li>
+            <li><a href="#">蜚语</a></li>
+            <li><a href="#">杂谈</a></li>
+            <li><a href="#">望</a></li>
+            <li><a href="#" class="last">闻</a></li>
+        </ul>
+    </nav>
+    <div class="pullcontainer">
+        <a href="#" id="pull"><i class="fa fa-bars fa-2x"></i></a>
+    </div>
+</header>
+<div class="text-inter">
+    <div class="divcontainer">
+        <div class="row">
+            <div style="margin-left: 10%">
+                <a href="#"
+                   style="  font-size: 20px;padding: 5px 0 5px 0;color: #41838e;font-family: 'Gorditas', Arial, sans-serif;">浮世若酒梦若花,半扇灯火忆一生</a>
+            </div>
+            <div class="containers">
+                <section class="main">
+                    <ul class="timeline" id="whis">
+                        <!--<li class="event">-->
+                        <!--<input type="radio" name="tl-group" checked/>-->
+                        <!--<label></label>-->
+                        <!--<div class="thumb" style=" background-image: url(./icon/Misdoubt.png);">-->
+                        <!--<span>2015-10-25</span></div>-->
+                        <!--<div class="content-perspective" onclick="ff(this)">-->
+                        <!--<div class="content">-->
+                        <!--<div class="content-inner" style="width: 80%">-->
+                        <!--<h3 style="margin: 0 auto">午后的阳光,那么美妙</h3>-->
+                        <!--&lt;!&ndash;<p>Don't be too proud of this technological terror you've constructed. The ability to destroy a planet is insignificant next to the power of the Force. The plans you refer to will soon be back in our hands. A tremor in the Force. The last time I felt it was in the presence of my old master. Escape is not his plan. I must face him. Alone.</p>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</li>-->
+                    </ul>
+                </section>
+            </div><!-- /container -->
+        </div>
+    </div>
+</div>
+<!--<div class="h2-wrap">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--&lt;!&ndash;<h2 class="standard-block">LATEST ARTICLES</h2>&ndash;&gt;-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div style="  background-color: #63c6ae; height: 250px">
+    <iframe src="createWhisper.html" frameborder=no border=0 marginwidth=0 marginheight=0 scrolling="no" width='100%'
+            height='100%' allowtransparency=no></iframe>
+</div>
+<!--<div class="shadow"></div>-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h2>时光 流言</h2>
+            </div>
+            <div class="col-md-5">
+                <p>那天,我在哪面墙上刻下一张脸,一张微笑着,忧伤着,凝望我的脸,我们微笑着说,我们停留在时光的原处...</p>
+            </div>
+            <div class="col-md-3">
+                <p>一年后,五年后,甚至十年后,希望我们都还是星星, 岁月静好,我们都还在,我们都还有彼此.</p>
+            </div>
+            <div class="col-md-2">
+                <ul class="footer-links">
+                    <li><a href="#">一年</a></li>
+                    <li><a href="#">俩年</a></li>
+                    <li><a href="#">五年</a></li>
+                    <li><a href="#">十年</a></li>
+                    <li><a href="#">往后余生</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/unslider.min.js"></script>
+<script>
+    $(function () {
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            alert("暂时不支持手机端打开哦? 小哥哥偷懒不想做自适应")
+        }
+    })
+
+    $.getJSON("whisper.json", function (data) {
+        var $jsontip = $("#jsonTip");
+        var str = ""
+        data.forEach(da => {
+            str += "         <li class=\"event\">\n" +
+                "                            <input type=\"radio\" name=\"tl-group\" checked/>\n" +
+                "                            <label></label>\n" +
+                "                            <div class=\"thumb\" style=\" background-image: url(" + da.icon + ");\">\n" +
+                "                                <span>" + da.time + "</span></div>\n" +
+                "                            <div class=\"content-perspective\" onclick=\"ff(this)\">\n" +
+                "                                <div class=\"content\">\n" +
+                "                                    <div class=\"content-inner\" style=\"width: 80%\">\n" +
+                "                                        <h3 style=\"margin: 0 auto\">" + da.whisper + "</h3>\n" +
+                "                                      </div>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </li>"
+        })
+        $("#whis").append(str)
+    })
+
+    function ff(e) {
+        var parentNode = e.parentNode.childNodes;
+        parentNode[1].click()
+    }
+
+    function newWhisper() {
+        alert("aaa")
+    }
+</script>
+</body>
+</html>
