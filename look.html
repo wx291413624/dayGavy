@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>时光</title>
+    <link rel="icon" href="time.png">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="js/modernizr.custom.63321.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!--页头-->
+<header class="clearfix">
+    <div class="logo col-md-3"><h2 class="logo-text">时光小屋</h2></div>
+    <nav class="clearfix">
+        <ul class="clearfix">
+            <li><a href="index.html">主页</a></li>
+            <li><a href="whisper.html">流言</a></li>
+            <li><a href="tale.html">蜚语</a></li>
+            <li><a href="informal.html">杂谈</a></li>
+            <li><a href="look.html" class="active">望</a></li>
+            <li><a href="hear.html" class="last">闻</a></li>
+        </ul>
+    </nav>
+    <div class="pullcontainer">
+        <a href="#" id="pull"><i class="fa fa-bars fa-2x"></i></a>
+    </div>
+</header>
+<div class="text-inter">
+    <div class="divcontainer">
+        <div class="row">
+            <div style="margin-left: 10%">
+            </div>
+            <div class="containers">
+                <section class="main">
+                    <iframe src="./201807061445/index.html" frameborder=no border=0 marginwidth=0 marginheight=0
+                            scrolling="no" id="cwin" name="cwin"
+                            width='150%'
+                            allowtransparency=no></iframe>
+                </section>
+            </div><!-- /container -->
+        </div>
+    </div>
+</div>
+
+<div style="  background-color: #63c6ae; height: 250px">
+
+</div>
+<!--<div class="shadow"></div>-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h2>时光 流言</h2>
+            </div>
+            <div class="col-md-5">
+                <p>那天,我在哪面墙上刻下一张脸,一张微笑着,忧伤着,凝望我的脸,我们微笑着说,我们停留在时光的原处...</p>
+            </div>
+            <div class="col-md-3">
+                <p>一年后,五年后,甚至十年后,希望我们都还是星星, 岁月静好,我们都还在,我们都还有彼此.</p>
+            </div>
+            <div class="col-md-2">
+                <ul class="footer-links">
+                    <li><a href="#">一年</a></li>
+                    <li><a href="#">俩年</a></li>
+                    <li><a href="#">五年</a></li>
+                    <li><a href="#">十年</a></li>
+                    <li><a href="#">往后余生</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/unslider.min.js"></script>
+<script>
+    $(function () {
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            alert("暂时不支持手机端打开哦? 小哥哥偷懒不想做自适应")
+        }
+        startInit('cwin', 560);
+    })
+    var browserVersion = window.navigator.userAgent.toUpperCase();
+    var isOpera = browserVersion.indexOf("OPERA") > -1 ? true : false;
+    var isFireFox = browserVersion.indexOf("FIREFOX") > -1 ? true : false;
+    var isChrome = browserVersion.indexOf("CHROME") > -1 ? true : false;
+    var isSafari = browserVersion.indexOf("SAFARI") > -1 ? true : false;
+    var isIE = (!!window.ActiveXObject || "ActiveXObject" in window);
+    var isIE9More = (!-[1,] == false);
+
+    function reinitIframe(iframeId, minHeight) {
+        try {
+            var iframe = document.getElementById(iframeId);
+            var bHeight = 0;
+            if (isChrome == false && isSafari == false) {
+                try {
+                    bHeight = iframe.contentWindow.document.body.scrollHeight;
+                } catch (ex) {
+                }
+            }
+            var dHeight = 0;
+            if (isFireFox == true)
+                dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;//如果火狐浏览器高度不断增加删除+2
+            else if (isIE == false && isOpera == false && iframe.contentWindow) {
+                try {
+                    dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                } catch (ex) {
+                }
+            }
+            else if (isIE == true && isIE9More) {//ie9+
+                var heightDeviation = bHeight - eval("window.IE9MoreRealHeight" + iframeId);
+                if (heightDeviation == 0) {
+                    bHeight += 3;
+                } else if (heightDeviation != 3) {
+                    eval("window.IE9MoreRealHeight" + iframeId + "=" + bHeight);
+                    bHeight += 3;
+                }
+            }
+            else//ie[6-8]、OPERA
+                bHeight += 3;
+
+            var height = Math.max(bHeight, dHeight);
+            if (height < minHeight) height = minHeight;
+            //alert(iframe.contentWindow.document.body.scrollHeight + "~" + iframe.contentWindow.document.documentElement.scrollHeight);
+            iframe.style.height = height + "px";
+        } catch (ex) {
+        }
+    }
+
+    function startInit(iframeId, minHeight) {
+        eval("window.IE9MoreRealHeight" + iframeId + "=0");
+        window.setInterval("reinitIframe('" + iframeId + "'," + minHeight + ")", 100);
+    }
+</script>
+</body>
+</html>
