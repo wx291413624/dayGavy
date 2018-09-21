@@ -103,33 +103,56 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/unslider.min.js"></script>
+<script src="./icon.js"></script>
 <script>
     $(function () {
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
             alert("暂时不支持手机端打开哦? 小哥哥偷懒不想做自适应")
         }
+
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:5000/findAll?gavyMarking=78006035",
+            dataType: "json",
+            success: function (data) {
+                if (data.code === 200) {
+                    let list = JSON.parse(data.date)
+                    let str = ""
+                    list.forEach(da => {
+                        str += "         <li class=\"event\">\n" +
+                            "                            <input type=\"radio\" name=\"tl-group\" checked/>\n" +
+                            "                            <label></label>\n" +
+                            "                            <div class=\"thumb\" style=\" background-image: url(" + icon(da.img_key) + ");\">\n" +
+                            "                                <span>" + time(da.whisper_time) + "</span></div>\n" +
+                            "                            <div class=\"content-perspective\" onclick=\"ff(this)\">\n" +
+                            "                                <div class=\"content\">\n" +
+                            "                                    <div class=\"content-inner\" style=\"width: 80%\">\n" +
+                            "                                        <h3 style=\"margin: 0 auto\">" + da.whisper + "</h3>\n" +
+                            "                                      </div>\n" +
+                            "                                </div>\n" +
+                            "                            </div>\n" +
+                            "                        </li>"
+                    })
+                    $("#whis").append(str)
+                }
+            }
+        });
+
     })
 
-    $.getJSON("whisper.json", function (data) {
-        var $jsontip = $("#jsonTip");
-        var str = ""
-        data.forEach(da => {
-            str += "         <li class=\"event\">\n" +
-                "                            <input type=\"radio\" name=\"tl-group\" checked/>\n" +
-                "                            <label></label>\n" +
-                "                            <div class=\"thumb\" style=\" background-image: url(" + da.icon + ");\">\n" +
-                "                                <span>" + da.time + "</span></div>\n" +
-                "                            <div class=\"content-perspective\" onclick=\"ff(this)\">\n" +
-                "                                <div class=\"content\">\n" +
-                "                                    <div class=\"content-inner\" style=\"width: 80%\">\n" +
-                "                                        <h3 style=\"margin: 0 auto\">" + da.whisper + "</h3>\n" +
-                "                                      </div>\n" +
-                "                                </div>\n" +
-                "                            </div>\n" +
-                "                        </li>"
-        })
-        $("#whis").append(str)
-    })
+    function icon(name) {
+        let icc = iconParm
+        let imgVale = eval("icc." + name)
+        return imgVale
+    }
+
+    function time(ti) {
+        let now = new Date(ti)
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        return year + "-" + month + "-" + date;
+    }
 
     function ff(e) {
         var parentNode = e.parentNode.childNodes;
